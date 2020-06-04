@@ -1,11 +1,7 @@
 ############## Process data  ######################
 
-project_output_dir <- '1_process/out'
 
-dir.create(project_output_dir)
-
-
-load_data <- function() {
+load_data <- function(mendota_file) {
   read_csv(mendota_file, col_types = 'iccd') %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
     mutate(col = case_when(
@@ -20,6 +16,7 @@ load_data <- function() {
   
 }
 
-summary_model <- function () {
-  readr::write_csv(load_data, path = file.path(project_output_dir, 'model_summary_results.csv'))
+summary_model <- function (mendota_file) {
+  readr::write_csv(mendota_file, path = file.path(project_output_dir, 'model_summary_results.csv'))
 }
+
