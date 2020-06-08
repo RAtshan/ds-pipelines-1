@@ -17,10 +17,10 @@ fetch_data(mendota_file)
 
 #Source 2 "processing" 
 eval_data <- load_data(mendota_file = mendota_file)  # declaring variable to load_data function output. argument = variable above. 
-summary_model(eval_df = eval_data, project_output_dir = '2_process/out')
-diagnostic_log_file(mendota_file = eval_data, project_output_dir = '2_process/out')
+summary_model(eval_df = eval_data, model_summary_file = '2_process/out/model_summary_results.csv')
+diagnostic_log_file(mendota_diagnostic_data = eval_data, model_diagnostic_summary = '2_process/out/model_diagnostic_text.txt')
 
 #Source 3 "visualizing"
-plot_results( mendota_file = eval_data, project_output_dir = '3_visualize/out')
+plot_results( mendota_proc_data = eval_data, plot_file = '3_visualize/out/figure_1.png')
 
 

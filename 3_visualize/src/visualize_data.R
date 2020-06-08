@@ -1,9 +1,9 @@
 ############## Visualize data  ######################
 
 
-plot_results <- function(mendota_file, project_output_dir) {
-              
-                    png(file = file.path(project_output_dir, 'figure_1.png'), width = 8, height = 10, res = 200, units = 'in')
+plot_results <- function(mendota_proc_data, project_output_dir) {
+ 
+                    png(mendota_proc_data, project_output_dir = file.path(project_output_dir, names = 'figure_1.png'), width = 8, height = 10, res = 200, units = 'in')
                     par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)
                     
                     plot(NA, NA, xlim = c(2, 1000), ylim = c(4.7, 0.75),
@@ -20,7 +20,7 @@ plot_results <- function(mendota_file, project_output_dir) {
                     
                     
                     for (mod in c('pb','dl','pgdl')){
-                      mod_data <- filter(mendota_file, model_type == mod)
+                      mod_data <- filter(mendota_proc_data, model_type == mod)
                       mod_profiles <- unique(mod_data$n_prof)
                       for (mod_profile in mod_profiles){
                         d <- filter(mod_data, n_prof == mod_profile) %>% summarize(y0 = min(rmse), y1 = max(rmse), col = unique(col))
