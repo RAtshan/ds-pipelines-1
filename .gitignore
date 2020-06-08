@@ -4,4 +4,5 @@
 .Ruserdata
 
 .remake
-.1_fetch/out/model_RMSEs.cs.csv
+
+1_fetch/out/*.csv
