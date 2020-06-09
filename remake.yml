@@ -1,0 +1,34 @@
+packages: 
+  - dplyr
+  - readr
+  - stringr
+  - sbtools
+  - whisker
+
+sources:
+  - 1_fetch/src/fetch_data.R
+  - 2_process/src/process_data.R
+  - 3_visualize/src/visualize_data.R
+
+targets:
+  all:
+    depends:
+      - 3_visualize/out/figure_1.png
+      - 2_process/out/model_summary_results.csv
+      - 2_process/out/model_diagnostic_text.txt
+
+  1_fetch/out/model_RMSEs.csv:
+    command: fetch_data(mendota_file = "1_fetch/out/model_RMSEs.csv")
+
+  eval_data:
+    command: load_data(mendota_file = "1_fetch/out/model_RMSEs.csv")
+
+  2_process/out/model_summary_results.csv:
+    command: summary_model(eval_df= eval_data, model_summary_file = '2_process/out/model_summary_results.csv')
+  
+  2_process/out/model_diagnostic_text.txt:
+    command: diagnostic_log_file(mendota_diagnostic_data = eval_data, model_diagnostic_summary = '2_process/out/model_diagnostic_text.txt')
+
+  3_visualize/out/figure_1.png:
+    command: plot_results(mendota_proc_data = eval_data, plot_file = "3_visualize/out/figure_1.png")
+    
